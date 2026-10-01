@@ -1,0 +1,30 @@
+title: Scheduled Task Creation via Schtasks for Persistence
+id: 9a20b0b8-7c85-48fa-869f-93d3b7d1bb39
+status: production
+description: Detects process execution of schtasks.exe configuring a persistent task with elevated privileges.
+author: Mohammed Batar
+references:
+  - https://attack.mitre.org/techniques/T1053/005/
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection_img:
+    - Image|endswith: '\schtasks.exe'
+    - OriginalFileName: 'schtasks.exe'
+  selection_args:
+    CommandLine|contains:
+      - '/create'
+  selection_recurrence:
+    CommandLine|contains:
+      - '/sc onstart'
+      - '/sc onlogon'
+      - '/sc minute'
+      - '/ru system'
+  condition: selection_img and selection_args and selection_recurrence
+falsepositives:
+  - Enterprise software updates (GoogleUpdate, AdobeUpdate)
+level: high
+tags:
+  - attack.persistence
+  - attack.t1053.005

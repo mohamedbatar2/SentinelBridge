@@ -1,0 +1,11 @@
+{
+  "event_id": 1,
+  "computer_name": "WIN-SRV-AD01",
+  "host_ip": "192.168.1.10",
+  "utc_time": "2026-10-01T21:00:00Z",
+  "image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+  "command_line": "powershell.exe -NoP -W Hidden -Enc SQBFAFgA...",
+  "parent_image": "C:\\Windows\\System32\\cmd.exe",
+  "process_id": 5120,
+  "parent_process_id": 1044
+}

@@ -1,0 +1,31 @@
+title: Suspicious Process Access to LSASS Memory
+id: 5e61df36-54a8-4c9c-b17b-03df813739bf
+status: production
+description: Detects memory handle acquisition to lsass.exe indicating credential harvesting (e.g., Mimikatz, Procdump).
+author: Mohammed Batar
+references:
+  - https://attack.mitre.org/techniques/T1003/001/
+logsource:
+  category: process_access
+  product: windows
+detection:
+  selection_target:
+    TargetImage|endswith: '\lsass.exe'
+  selection_access:
+    # 0x1010, 0x1038, 0x1438, 0x1F3FFF - Process Read / VM_READ / VM_WRITE permissions
+    GrantedAccess|contains:
+      - '0x1010'
+      - '0x1038'
+      - '0x1438'
+      - '0x1f3fff'
+  filter_legit:
+    SourceImage|endswith:
+      - '\csrss.exe'
+      - '\MsMpEng.exe'
+  condition: selection_target and selection_access and not filter_legit
+falsepositives:
+  - Antivirus and EDR agents inspecting LSASS handles
+level: critical
+tags:
+  - attack.credential_access
+  - attack.t1003.001

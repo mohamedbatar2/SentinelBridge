@@ -1,0 +1,23 @@
+{
+  "source": "wazuh",
+  "timestamp": "2026-09-24T18:30:00Z",
+  "severity": "high",
+  "rule_id": "100001",
+  "title": "Suspicious PowerShell Encoded Command",
+  "description": "PowerShell was observed executing with an encoded command flag.",
+  "host": {
+    "hostname": "WIN-SRV-AD01",
+    "ip": "192.168.1.10"
+  },
+  "process": {
+    "command_line": "powershell.exe -NoP -NonI -W Hidden -Enc SQBFAFgA...",
+    "process_id": 4812,
+    "parent_process_id": 1024,
+    "image_path": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+  },
+  "iocs": {
+    "ips": ["198.51.100.23"],
+    "domains": ["malicious-c2.internal"],
+    "hashes": ["e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"]
+  }
+}

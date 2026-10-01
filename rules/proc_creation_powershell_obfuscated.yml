@@ -1,0 +1,35 @@
+title: Suspicious PowerShell Obfuscated or Encoded Execution
+id: f4a8726e-219d-47be-b946-4dc4a888c3a1
+status: production
+description: Detects PowerShell executing with encoded commands, hidden windows, or execution bypass flags.
+author: Mohammed Batar
+references:
+  - https://attack.mitre.org/techniques/T1059/001/
+  - https://attack.mitre.org/techniques/T1027/
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection_img:
+    - Image|endswith: '\powershell.exe'
+    - OriginalFileName: 'PowerShell.EXE'
+  selection_flags:
+    CommandLine|contains:
+      - '-enc '
+      - '-encodedcommand '
+      - '-w hidden '
+      - '-windowstyle hidden '
+      - '-nop '
+      - '-noprofile '
+      - 'invoke-expression'
+      - 'iex('
+      - 'downloadstring'
+  condition: selection_img and selection_flags
+falsepositives:
+  - Legitimate administrative provisioning scripts (e.g., SCCM, Chocolatey, Intune)
+level: high
+tags:
+  - attack.execution
+  - attack.t1059.001
+  - attack.defense_evasion
+  - attack.t1027

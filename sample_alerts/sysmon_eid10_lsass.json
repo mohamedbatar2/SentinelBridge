@@ -1,0 +1,10 @@
+{
+  "event_id": 10,
+  "computer_name": "WIN-SRV-AD01",
+  "host_ip": "192.168.1.10",
+  "utc_time": "2026-10-01T21:05:00Z",
+  "source_image": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\procdump.exe",
+  "target_image": "C:\\Windows\\System32\\lsass.exe",
+  "granted_access": "0x1F3FFF",
+  "call_trace": "C:\\Windows\\SYSTEM32\\ntdll.dll+9d454"
+}
